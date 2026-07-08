@@ -26,6 +26,12 @@ if st.session_state.resultat is None:
         </style>
     """, unsafe_allow_html=True)
 
+    # Placeholder for your dice image
+    try:
+        st.image("dau.png", width=150)
+    except:
+        st.write("---")
+
     if st.button("ROLL THE DICE"):
         with st.spinner('Processing...'):
             time.sleep(1.5)
