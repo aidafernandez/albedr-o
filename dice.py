@@ -3,10 +3,7 @@ import random
 import time
 
 # Page setup for BASS
-st.set_page_config(page_title="Albedrío - BASS", page_icon="🎲")
-
-st.title("🎲 Albedrío")
-st.subheader("Agency vs. Code: An illusionary experience")
+st.set_page_config(page_title="Albedrío - BASS")
 
 # Session state initialization
 if 'resultat' not in st.session_state:
@@ -14,21 +11,30 @@ if 'resultat' not in st.session_state:
 
 # Interface logic
 if st.session_state.resultat is None:
-    # Placeholder for your dice image
-    try:
-        st.image("dau.png", width=150)
-    except:
-        st.write("---")
+    # Fem servir HTML per fer el botó més gran i visual
+    # Encapsulem el botó en un div amb estil
+    st.markdown("""
+        <style>
+        div.stButton > button:first-child {
+            background-color: #000000;
+            color: white;
+            font-size: 24px;
+            height: 3em;
+            width: 100%;
+            border-radius: 10px;
+        }
+        </style>
+    """, unsafe_allow_html=True)
 
-    if st.button("Roll the dice"):
-        with st.spinner('Processing your choice...'):
+    if st.button("ROLL THE DICE"):
+        with st.spinner('Processing...'):
             time.sleep(1.5)
-            # The system restricts the outcome to 2 or 4
-            st.session_state.resultat = random.choice([2, 4])
+            # Triem entre els dos símbols
+            st.session_state.resultat = random.choice(["⚁", "⚃"])
             st.rerun()
 
 else:
-    # No way back. The button is gone forever.
-    st.header(f"System Output: {st.session_state.resultat}")
+    # Mostrar el símbol gran
+    st.markdown(f"<h1 style='text-align: center; font-size: 100px;'>{st.session_state.resultat}</h1>", unsafe_allow_html=True)
     st.success("Your action has been processed and locked.")
-    st.markdown("**The system has determined your path. There is no alternative.**")
+    st.markdown("**The system has determined your path.**")
